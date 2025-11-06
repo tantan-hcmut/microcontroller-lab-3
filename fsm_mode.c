@@ -14,6 +14,26 @@
 int tempState = 0;
 mode_style mode;
 
+void finalize_time_config(){
+	//Min
+	if(time_red < 5) time_red = 5;
+	if(time_green < 3) time_green = 3;
+	if(time_yellow < 2) time_yellow = 2;
+
+	//Sum lớn hơn 99
+    if(time_green + time_yellow > 99) {
+        time_yellow = 99 - time_green;
+        if(time_yellow < 2) {
+            time_yellow = 2;
+            time_green = 99 - time_yellow;
+            if(time_green < 3) time_green = 3;
+        }
+    }
+
+	//red = yellow + green
+	time_red = time_green + time_yellow;
+}
+
 void fsm_mode_run(){
 	switch(mode){
 		case NORMAL_MODE:
@@ -83,6 +103,7 @@ void fsm_mode_run(){
 			}
 			if(tempState && !is_button_press(0)){
 				tempState = 0;
+				finalize_time_config();
 				mode = NORMAL_MODE;
 				traffic_init();
 			}
