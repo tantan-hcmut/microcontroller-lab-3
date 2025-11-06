@@ -18,6 +18,7 @@ extern uint16_t time_yellow;
 extern uint16_t time_green;
 extern uint16_t modify_led_counter;
 
+void finalize_time_config();
 void fsm_mode_run();
 
 #endif /* INC_FSM_MODE_H_ */
